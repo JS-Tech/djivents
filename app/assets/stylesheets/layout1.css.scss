@@ -6,13 +6,27 @@
 	-webkit-font-smoothing: antialiased;
 	font-weight: 300;
 	background: #DB4437;
+	position: relative;
+	z-index: -2;
 
 	.title {
-		background: #27395e;
 		color: #fff;
-		padding: 30px;
 		width: 300px;
-		float: left;
+		float: left;		
+		.main {
+			background: #27395e;
+			padding: 30px;
+		}
+		.sub1 {
+			padding: 10px 30px;
+			font-size: 14px;
+			background: #D2AE9B;
+		}
+		.sub2 {
+			padding: 10px 30px;
+			font-size: 14px;
+			background: #9B543E;
+		}
 	}
 
 	.big-events {
@@ -20,9 +34,9 @@
 		overflow: auto;
 		.big-event {
 			overflow: hidden;
-			height: 400px;
+			max-height: 300px;
 			position: relative;
-			box-shadow: 1px 1px 44px #111;
+			box-shadow: 0px 30px 30px -30px #111 inset;
 			h3 {
 				position: absolute;
 				left: 50px;
@@ -38,6 +52,14 @@
 			}
 			img.cover {
 				width: 100%;
+				position: relative;
+				z-index: -1;
+			}
+			.description {
+				position: absolute;
+				top: 74px;
+				left: 53px;
+				color: #fff;
 			}
 		}
 	}
