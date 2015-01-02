@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
+  get 'static/layouut2'
+
   get 'static/layout1'
+  get 'static/layout2'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
