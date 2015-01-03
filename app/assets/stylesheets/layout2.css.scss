@@ -1,5 +1,8 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:500,900,100,300,700,400);
 
+$big:#9B543E;
+$small:#D2AE9B;
+
 #layout2 {
 
 	font-family: 'Roboto', sans-serif;
@@ -21,50 +24,130 @@
 		.sub1 {
 			padding: 10px 30px;
 			font-size: 14px;
-			background: #D2AE9B;
+			background: $small;
 		}
 		.sub2 {
 			padding: 10px 30px;
 			font-size: 14px;
-			background: #9B543E;
+			background: $big;
 		}
 	}
 
-	.big-events {
-		color: #1A1A1A;
+	.events {
 		overflow: auto;
-		position: relative;
-		height: 350px;
-		.big-event {
-			overflow: hidden;
-			max-height: 300px;
+		margin: 0 10px 0 0;
+
+		.big-events {
+			color: #1A1A1A;
 			position: relative;
-			box-shadow: 0px 30px 30px -30px #111 inset;
-			h3 {
+			height: 400px;
+			.big-event {
+				overflow: hidden;
+				max-height: 300px;
 				position: absolute;
-				left: 50px;
-				top: 10px;
-				color: #fff;
-				font-weight: 300;
-				font-size: 50px;
+				box-shadow: 1px 1px 3px 0px #111;
+				// anim
+    /* Chrome, Safari, Opera */
+    -webkit-animation-name: myfirst;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-delay: 2s;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-direction: alternate;
+    -webkit-animation-play-state: running;
+    /* Standard syntax */
+    animation-name: myfirst;
+    animation-duration: 5s;
+    animation-timing-function: linear;
+    animation-delay: 2s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-play-state: running;
+				//
+				h3 {
+					position: absolute;
+					left: 50px;
+					top: 10px;
+					color: #fff;
+					font-weight: 300;
+					font-size: 50px;
+				}
+				img.icon {
+					position: absolute;
+					top: 30px;
+					left: 10px;
+				}
+				img.cover {
+					width: 100%;
+				}
+				.description {
+					position: absolute;
+					top: 74px;
+					left: 53px;
+					color: #fff;
+				}
+
+				&.e3 {
+					left: 20px;
+					top: -5px;
+					transform: rotate(-0.01rad);
+					-webkit-backface-visibility: hidden;
+				}
+				&.e2 {
+					top: 10px;
+					left: 10px;
+				}
+				&.e1 {
+					top: 31px;
+					left: 39px;
+					transform: rotate(1deg);
+					-webkit-backface-visibility: hidden;
+				}
+
 			}
-			img.icon {
-				position: absolute;
-				top: 30px;
-				left: 10px;
+
+		}
+
+		.road {
+			color: #fff;
+			div {
+				width: 50%;
+				display: table;
+				.img {
+					display: table-cell;
+					height: 100%;
+					width: 100px;
+					text-align: center;
+					background: rgba(0, 0, 0, 0.09);
+					img {
+						width: 35px;
+					}
+				}
+				h3 {
+					display: table-cell;
+					padding: 10px 20px;
+					text-align: center;
+				}
 			}
-			img.cover {
-				width: 100%;
-				position: relative;
-				z-index: -1;
+			.top {
+				background: $big;
+				float: left;
 			}
-			.description {
-				position: absolute;
-				top: 74px;
-				left: 53px;
-				color: #fff;
+			.bellow {
+				background: $small;
+				float: right;
 			}
 		}
+
 	}
 
 }
+
+// anim
+@-webkit-keyframes myfirst {
+    100% { transform: translateX(1em); }
+}
+@keyframes myfirst {
+    100% { transform: translateX(1em); }
+}
+//
