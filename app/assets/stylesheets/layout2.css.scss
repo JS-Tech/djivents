@@ -1,5 +1,6 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:500,900,100,300,700,400);
 
+$title:#27395e;
 $big:#9B543E;
 $small:#D2AE9B;
 
@@ -18,7 +19,7 @@ $small:#D2AE9B;
 		width: 300px;
 		float: left;		
 		.main {
-			background: #27395e;
+			background: $title;
 			padding: 30px;
 		}
 		.sub1 {
@@ -163,6 +164,19 @@ $small:#D2AE9B;
 					text-align: center;
 					padding: 32px 0 0 0px;
 					font-weight: 300;
+				}
+				p.date {
+					position: absolute;
+					height: 40px;
+					width: 40px;
+					border-radius: 50%;
+					top: 10px;
+					left: 10px;
+					color: #fff;
+					font-weight: 500;
+					padding: 8px 0 0 0;
+					text-align: center;
+					background: $small;
 				}
 				p.description {
 					position: absolute;
