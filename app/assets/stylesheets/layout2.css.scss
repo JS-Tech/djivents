@@ -47,22 +47,22 @@ $small:#D2AE9B;
 				position: absolute;
 				box-shadow: 1px 1px 3px 0px #111;
 				// anim
-    /* Chrome, Safari, Opera */
-    -webkit-animation-name: myfirst;
-    -webkit-animation-duration: 2s;
-    -webkit-animation-timing-function: linear;
-    -webkit-animation-delay: 2s;
-    -webkit-animation-iteration-count: infinite;
-    -webkit-animation-direction: alternate;
-    -webkit-animation-play-state: running;
-    /* Standard syntax */
-    animation-name: myfirst;
-    animation-duration: 5s;
-    animation-timing-function: linear;
-    animation-delay: 2s;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-    animation-play-state: running;
+    // /* Chrome, Safari, Opera */
+    // -webkit-animation-name: myfirst;
+    // -webkit-animation-duration: 2s;
+    // -webkit-animation-timing-function: linear;
+    // -webkit-animation-delay: 2s;
+    // -webkit-animation-iteration-count: infinite;
+    // -webkit-animation-direction: alternate;
+    // -webkit-animation-play-state: running;
+    // /* Standard syntax */
+    // animation-name: myfirst;
+    // animation-duration: 2s;
+    // animation-timing-function: linear;
+    // animation-delay: 2s;
+    // animation-iteration-count: infinite;
+    // animation-direction: alternate;
+    // animation-play-state: running;
 				//
 				h3 {
 					position: absolute;
@@ -104,9 +104,9 @@ $small:#D2AE9B;
 					-webkit-backface-visibility: hidden;
 				}
 
-			}
+			} // gib event
 
-		}
+		} // big events
 
 		.road {
 			color: #fff;
@@ -137,17 +137,63 @@ $small:#D2AE9B;
 				background: $small;
 				float: right;
 			}
+
+		} // road
+
+		.small-events {
+			margin: 100px 0 0 0;
+			height: 1000px;
+			.small-event {
+				width: 250px;
+				height: 200px;
+				display: inline-block;
+				position: relative;
+				overflow: hidden;
+				-webkit-backface-visibility: hidden;
+				color: #fff;
+				box-shadow: 23px 37px 105px 0px rgba(0, 0, 0, 0.77);
+				h3 {
+					position: absolute;
+					top: 36px;
+					left: 64px;
+					width: 120px;
+					height: 120px;
+					border-radius: 50%;
+					background: $big;
+					text-align: center;
+					padding: 32px 0 0 0px;
+					font-weight: 300;
+				}
+				p.description {
+					position: absolute;
+					top: 40px;
+					left: 10px;
+					right: 10px;
+					display: none;
+				}
+				img.cover {
+					position: absolute;
+					top: 0;
+					left: 0;
+					z-index: -1;
+					height: 100%;
+				}
+			}
 		}
 
-	}
+	} // events
 
 }
 
 // anim
 @-webkit-keyframes myfirst {
-    100% { transform: translateX(1em); }
+  100% { 
+  	transform: translateY(0.1em); 
+  }
 }
 @keyframes myfirst {
-    100% { transform: translateX(1em); }
+  100% { 
+  	transform: translateY(1em); 
+  }
 }
 //
