@@ -3,12 +3,13 @@ Rails.application.routes.draw do
 
   get 'static/layout1'
   get 'static/layout2'
+  get 'static/layout3'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'static#layout2'
+  root 'static#layout3'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

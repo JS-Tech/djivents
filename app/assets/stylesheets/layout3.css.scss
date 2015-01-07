@@ -1,0 +1,183 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:500,900,100,300,700,400);
+
+$title:#27395e;
+$big:#9B543E;
+$small:#D2AE9B;
+
+#layout3 {
+
+	font-family: 'Roboto', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	font-weight: 300;
+	background: #DB4437;
+	position: relative;
+	z-index: -2;
+	min-height: 100%;
+
+	.title {
+		color: #fff;
+		width: 300px;
+		float: left;		
+		.main {
+			background: $title;
+			padding: 30px;
+		}
+		.sub1 {
+			padding: 10px 30px;
+			font-size: 14px;
+			background: $small;
+		}
+		.sub2 {
+			padding: 10px 30px;
+			font-size: 14px;
+			background: $big;
+		}
+	}
+
+	.events {
+		overflow: auto;
+		margin: 0 10px 0 0;
+
+		.big-events {
+			color: #1A1A1A;
+			position: relative;
+			height: 400px;
+			margin: 30px 0 0 0;
+			.big-event {
+				overflow: hidden;
+				max-height: 300px;
+				position: absolute;
+				box-shadow: 1px 1px 3px 0px #111;
+				h3 {
+					position: absolute;
+					left: 50px;
+					top: 10px;
+					color: #fff;
+					font-weight: 300;
+					font-size: 50px;
+				}
+				img.icon {
+					position: absolute;
+					top: 30px;
+					left: 10px;
+				}
+				img.cover {
+					width: 100%;
+				}
+				.description {
+					position: absolute;
+					top: 74px;
+					left: 53px;
+					color: #fff;
+				}
+
+				&.e3 {
+					left: 20px;
+					top: -5px;
+					transform: rotate(-0.01rad);
+					-webkit-backface-visibility: hidden;
+				}
+				&.e2 {
+					top: 10px;
+					left: 10px;
+				}
+				&.e1 {
+					top: 31px;
+					left: 39px;
+					transform: rotate(1deg);
+					-webkit-backface-visibility: hidden;
+				}
+
+			} // gib event
+
+		} // big events
+
+		.road {
+			color: #fff;
+			div {
+				width: 50%;
+				display: table;
+				.img {
+					display: table-cell;
+					height: 100%;
+					width: 100px;
+					text-align: center;
+					background: rgba(0, 0, 0, 0.09);
+					img {
+						width: 35px;
+					}
+				}
+				h3 {
+					display: table-cell;
+					padding: 10px 20px;
+					text-align: center;
+				}
+			}
+			.top {
+				background: $big;
+				float: left;
+			}
+			.bellow {
+				background: $small;
+				float: right;
+			}
+
+		} // road
+
+		.small-events {
+			margin: 100px 0 0 0;
+			height: 1000px;
+			.small-event {
+				width: 250px;
+				height: 200px;
+				display: inline-block;
+				position: relative;
+				overflow: hidden;
+				-webkit-backface-visibility: hidden;
+				color: #fff;
+				box-shadow: 23px 37px 105px 0px rgba(0, 0, 0, 0.77);
+				h3 {
+					position: absolute;
+					top: 36px;
+					left: 64px;
+					width: 120px;
+					height: 120px;
+					border-radius: 50%;
+					background: $big;
+					text-align: center;
+					padding: 32px 0 0 0px;
+					font-weight: 300;
+				}
+				p.date {
+					position: absolute;
+					height: 40px;
+					width: 40px;
+					border-radius: 50%;
+					top: 10px;
+					left: 10px;
+					color: #fff;
+					font-weight: 500;
+					padding: 8px 0 0 0;
+					text-align: center;
+					background: $small;
+				}
+				p.description {
+					position: absolute;
+					top: 40px;
+					left: 10px;
+					right: 10px;
+					display: none;
+				}
+				img.cover {
+					position: absolute;
+					top: 0;
+					left: 0;
+					z-index: -1;
+					height: 100%;
+				}
+			}
+		}
+
+	} // events
+
+}
