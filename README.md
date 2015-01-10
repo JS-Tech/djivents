@@ -14,3 +14,4 @@ Flux en mouvement, les événements comme des *post-it* qui bouge. C'est l'utili
 # Technologies
 
 - GSAP, fast javascript animation
+- Pixi ?
