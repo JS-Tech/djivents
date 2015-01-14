@@ -1,0 +1,42 @@
+<div id="layout4">
+
+  <div class="header">
+    <h1>Les grands événements</h1>
+  </div>
+
+  <div id="phaser"></div>
+
+</div>
+
+<script type="text/javascript">
+
+window.onload = function() {
+  var game = new Phaser.Game("100", "100", Phaser.AUTO, 'phaser', { preload: preload, create: create });
+    
+    function preload () {
+      game.load.image('logo', '<%= asset_path "layout4phaser/phaser.png" %>');
+      game.load.image('rj', '<%= asset_path "layout4phaser/rjlogin15.png" %>');
+    }
+
+    function create () {
+      //var image = game.add.sprite(game.world.centerX, game.world.centerY, 'logo');
+      var image = game.add.sprite(20, 10, 'logo');
+      var image2 = game.add.sprite(30, 5, 'rj');
+      // var tween = game.add.tween(image);
+      // tween.to({ x: 600 }, 6000);
+      // tween.start();
+      // image.animations.add('float');
+      // image.play('float', 20, true);
+      //var tween = game.add.tween(image).to( {y: image.height*2}, 2000, Phaser.Easing.Linear.out, true, 1000, -1, true );
+      var tween = game.add.tween(image).to( {y: image.y+10, x: image.x+12}, 1400, Phaser.Easing.Linear.out, true, 1000, -1, true );
+      this.add.tween(image2)
+            .to( {y: image2.y+10, x: image2.x+50}, 5000, Phaser.Easing.Quadratic.InOut )
+            .to( {y: image2.y-20, x: image2.x+55}, 6000, Phaser.Easing.Quadratic.InOut )
+            .to( {y: image2.y, x: image2.x}, 6000, Phaser.Easing.Quadratic.InOut )
+            .loop()
+            .start();
+    }
+
+};
+
+</script>

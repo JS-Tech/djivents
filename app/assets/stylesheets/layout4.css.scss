@@ -1,0 +1,25 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:500,900,100,300,700,400);
+
+#layout4 {
+
+	font-family: 'Roboto', sans-serif;
+	-webkit-font-smoothing: antialiased;
+	font-weight: 300;
+	background: #DB4437;
+	position: relative;
+	z-index: -2;
+	min-height: 100%;
+
+	.header {
+		float: left;
+		width: 300px;
+		padding: 15px;
+		color: #fff;
+	}
+
+	#phaser {
+		height: 100%;
+		overflow: auto;
+	}
+
+}
