@@ -1,0 +1,117 @@
+<div id="layout5">
+
+  <div class="header">
+    <h1>Les grands événements</h1>
+  </div>
+
+  <div id="phaser"></div>
+
+</div>
+
+<script type="text/javascript">
+
+
+window.onload = function() {
+  var w = $('#phaser').width;
+  var game = new Phaser.Game("93%", "100", Phaser.CANVAS, 'phaser', { preload: preload, create: create, update: update, render: render });
+
+  function preload() {
+    game.stage.backgroundColor = '#cf4034';
+    game.load.image('logo', '<%= asset_path "layout5phaser/phaser.png" %>');
+    game.load.image('rj', '<%= asset_path "layout5phaser/rjlogin15.png" %>');
+    game.load.image('rj2', '<%= asset_path "layout5phaser/rj15.jpg" %>');
+  }
+
+  var image, image2;
+  var mouseBody;
+  var mouseConstraint;
+  var group;
+  var tweenManager;
+
+  function create() {
+      mouseBody = new p2.Body(); // create physics body for mouse which we will use for dragging clicked bodies
+      group = new Phaser.Group(game);
+      tweenManager = new Phaser.TweenManager(game);
+      group.addChild(game.add.sprite(0,10, 'rj2'));
+      group.addChild(game.add.sprite(game.world.centerX, 0, 'rj2'));
+      group.addChild(game.add.sprite(game.world.centerX, 0, 'rj2'));
+
+      game.physics.startSystem(Phaser.Physics.P2JS);
+      game.physics.p2.world.addBody(mouseBody);
+      
+      var blockCollisionGroup = game.physics.p2.createCollisionGroup(); // Create collision group for the blocks
+      game.physics.p2.updateBoundsCollisionGroup(); // to still collide with the world bounds
+      
+      var i=0;
+      group.forEach(function(child){
+        game.physics.p2.enable(child, false);
+        child.body.setCollisionGroup(blockCollisionGroup);
+        // child.body.collides([blockCollisionGroup]);
+        child.body.damping = 0.99;
+        child.body.velocity.y = ++i*100;
+        child.body.velocity.x = i*100;
+        //tweenManager.add(game.add.tween(child.body.velocity).to( { x: 0, y: 20 }, 2900, Phaser.Easing.Quadratic.Out ).to( { x: 0, y: -20 }, 3000, Phaser.Easing.Quadratic.Out).yoyo().loop().start());
+      },this);
+      
+      // attach pointer events
+      game.input.onDown.add(click, this);
+      game.input.onUp.add(release, this);
+      game.input.addMoveCallback(move, this);
+  }
+
+  function click(pointer) {
+
+      var bodies = game.physics.p2.hitTest(pointer.position, group.children);
+      
+      // p2 uses different coordinate system, so convert the pointer position to p2's coordinate system
+      var physicsPos = [game.physics.p2.pxmi(pointer.position.x), game.physics.p2.pxmi(pointer.position.y)];
+      
+      if (bodies.length)
+      {
+          // tweenManager.pauseAll();
+          var clickedBody = bodies[0];
+          group.bringToTop(clickedBody.parent.sprite);
+
+          var localPointInBody = [0, 0];
+          // this function takes physicsPos and coverts it to the body's local coordinate system
+          clickedBody.toLocalFrame(localPointInBody, physicsPos);
+          
+          // use a revoluteContraint to attach mouseBody to the clicked body
+          mouseConstraint = this.game.physics.p2.createRevoluteConstraint(
+            mouseBody, [0, 0], 
+            clickedBody, [game.physics.p2.mpxi(localPointInBody[0]), game.physics.p2.mpxi(localPointInBody[1]) ]);
+      }   
+
+  }
+
+  function release() {
+
+      // remove constraint from object's body
+      game.physics.p2.removeConstraint(mouseConstraint);
+      // tweenManager.resumeAll();
+
+  }
+
+  function move(pointer) {
+
+      // p2 uses different coordinate system, so convert the pointer position to p2's coordinate system
+      if(game.physics.p2.pxmi(pointer.position.x))
+      mouseBody.position[0] = game.physics.p2.pxmi(pointer.position.x);
+      mouseBody.position[1] = game.physics.p2.pxmi(pointer.position.y);
+
+  }
+
+  function update() {
+    group.setAll('body.rotation',0);
+  }
+
+  function render() {
+
+  //  game.debug.text(result, 32, 32);
+
+  }
+
+}
+
+
+</script>

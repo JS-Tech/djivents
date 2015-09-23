@@ -11,32 +11,113 @@
 <script type="text/javascript">
 
 window.onload = function() {
+
   var game = new Phaser.Game("100", "100", Phaser.AUTO, 'phaser', { preload: preload, create: create });
     
-    function preload () {
-      game.load.image('logo', '<%= asset_path "layout4phaser/phaser.png" %>');
-      game.load.image('rj', '<%= asset_path "layout4phaser/rjlogin15.png" %>');
-    }
+  function preload () {
+    game.stage.backgroundColor = '#DB4437';
+    game.load.image('logo', '<%= asset_path "layout4phaser/phaser.png" %>');
+    game.load.image('rj', '<%= asset_path "layout4phaser/rjlogin15.png" %>');
+    game.physics.startSystem(Phaser.Physics.P2JS);
+  }
 
-    function create () {
-      //var image = game.add.sprite(game.world.centerX, game.world.centerY, 'logo');
-      var image = game.add.sprite(20, 10, 'logo');
-      var image2 = game.add.sprite(30, 5, 'rj');
-      // var tween = game.add.tween(image);
-      // tween.to({ x: 600 }, 6000);
-      // tween.start();
-      // image.animations.add('float');
-      // image.play('float', 20, true);
-      //var tween = game.add.tween(image).to( {y: image.height*2}, 2000, Phaser.Easing.Linear.out, true, 1000, -1, true );
-      var tween = game.add.tween(image).to( {y: image.y+10, x: image.x+12}, 1400, Phaser.Easing.Linear.out, true, 1000, -1, true );
-      this.add.tween(image2)
-            .to( {y: image2.y+10, x: image2.x+50}, 5000, Phaser.Easing.Quadratic.InOut )
-            .to( {y: image2.y-20, x: image2.x+55}, 6000, Phaser.Easing.Quadratic.InOut )
-            .to( {y: image2.y, x: image2.x}, 6000, Phaser.Easing.Quadratic.InOut )
-            .loop()
-            .start();
+  var image2;
+  var mouseBody;
+  var mouseConstraint;
+
+  function create () {
+    //var image = game.add.sprite(game.world.centerX, game.world.centerY, 'logo');
+    var image = game.add.sprite(20, 10, 'logo');
+    image2 = game.add.sprite(30, 5, 'rj');
+    image2.scale.x = image2.width / (game.width*2);
+    // var tween = game.add.tween(image);
+    // tween.to({ x: 600 }, 6000);
+    // tween.start();
+    // image.animations.add('float');
+    // image.play('float', 20, true);
+    //var tween = game.add.tween(image).to( {y: image.height*2}, 2000, Phaser.Easing.Linear.out, true, 1000, -1, true );
+    // var tween = game.add.tween(image).to( {y: image.y+10, x: image.x+12}, 1400, Phaser.Easing.Linear.out, true, 1000, -1, true );
+    // this.add.tween(image2)
+    //       .to( {y: image2.y+10, x: image2.x+50}, 5000, Phaser.Easing.Quadratic.InOut )
+    //       .to( {y: image2.y-20, x: image2.x+55}, 6000, Phaser.Easing.Quadratic.InOut )
+    //       .to( {y: image2.y, x: image2.x}, 6000, Phaser.Easing.Quadratic.InOut )
+    //       .loop()
+    //       .start();
+    //game.physics.startSystem(Phaser.Physics.ARCADE);
+    //  Set the world (global) gravity
+    //game.physics.arcade.gravity.y = 100;
+    //  Sprite 1 will use the World (global) gravity
+    //game.physics.arcade.enable(image2);
+    game.physics.p2.enable(image2,true);
+    // image2.body.collideWorldBounds = true;
+    // image2.body.velocity.x = 200;
+    // image2.body.velocity.y = -11;
+    //image2.body.setSize(1100/image2.scale.x, 100+image2.height/image2.scale.y);
+    //image2.body.bounce.set(0.9);
+    image2.inputEnabled = true;
+    image2.input.enableDrag();
+    // image2.events.onDragStart.add(startDrag, this);
+    // image2.events.onDragStop.add(stopDrag, this);
+
+    // create physics body for mouse which we will use for dragging clicked bodies
+    mouseBody = new p2.Body();
+    game.physics.p2.world.addBody(mouseBody);
+
+    // attach pointer events
+    game.input.onDown.add(click, this);
+    game.input.onUp.add(release, this);
+    game.input.addMoveCallback(move, this);
+
+  }
+
+  function update() {
+   if( image2.input.isDragged ) {
+      //BODY => follow pointer
+      image2.body.x = game.input.activePointer.worldX;
+      image2.body.y = game.input.activePointer.worldY;
     }
+  }
+
+  function startDrag() {
+    //  You can't have a sprite being moved by physics AND input, so we disable the physics while being dragged
+    image2.body.static = true;
+    image2.body.moves = false;
+  }
+
+  function stopDrag() {
+    //  And re-enable it upon release
+    image2.body.static = false;
+    image2.body.moves = true;
+  }
+
+  // For drag on P2 see http://jsfiddle.net/9e8cd/ & http://jsfiddle.net/r2M8R/1/
+  function click(pointer){
+    var bodies = game.physics.p2.hitTest(pointer.position, [ image2.body ]);
+    // p2 uses different coordinate system, so convert the pointer position to p2's coordinate system
+    var physicsPos = [game.physics.p2.pxmi(pointer.position.x), game.physics.p2.pxmi(pointer.position.y)];
+    if (bodies.length){
+      var clickedBody = bodies[0];
+      var localPointInBody = [0, 0];
+      // this function takes physicsPos and coverts it to the body's local coordinate system
+      clickedBody.toLocalFrame(localPointInBody, physicsPos);
+      // use a revoluteContraint to attach mouseBody to the clicked body
+      mouseConstraint = this.game.physics.p2.createRevoluteConstraint(mouseBody, [0, 0], clickedBody, [game.physics.p2.mpxi(localPointInBody[0]), game.physics.p2.mpxi(localPointInBody[1]) ]);
+    } 
+  }
+
+  function release(){
+    // remove constraint from object's body
+    game.physics.p2.removeConstraint(mouseConstraint);
+  }
+
+  function move(pointer){
+    // p2 uses different coordinate system, so convert the pointer position to p2's coordinate system
+    mouseBody.position[0] = game.physics.p2.pxmi(pointer.position.x);
+    mouseBody.position[1] = game.physics.p2.pxmi(pointer.position.y);
+  }
 
 };
+
+// Tween : http://svejkgames.com/blog/post/how-to-use-tweens-in-phaser-framework/
 
 </script>
